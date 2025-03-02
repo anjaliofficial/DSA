@@ -51,7 +51,7 @@ public class QN1B {
         // The array stores three elements: {product, index in returns1, index in
         // returns2}
         minHeap.add(new int[] { returns1[0] * returns2[0], 0, 0 }); // {product, index in returns1, index in returns2}
-
+  
         // Variable to store the count of how many products have been processed.
         int count = 0;
 

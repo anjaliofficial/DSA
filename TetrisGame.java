@@ -43,12 +43,7 @@ other game-specific rules.
 Leveling: Increase the speed of the falling blocks as the player's score increases. 
 Power-ups: Add power-ups like clearing lines, adding extra rows, or changing the shape of the current 
 block. 
-*/ 
-
-
-
-
-import java.awt.*;
+*/ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -56,25 +51,22 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
-import java.util.Stack;
 import javax.swing.*;
 
-public class QN3B extends JPanel implements ActionListener {
+public class TetrisGame extends JPanel implements ActionListener {
     private static final int ROWS = 20, COLS = 10, BLOCK_SIZE = 30;
     private Timer timer;
     private Queue<Tetromino> blockQueue;
-    private Stack<int[][]> boardStack;
     private Tetromino currentBlock;
     private boolean gameOver;
     private int[][] board;
     private int score;
 
-    public QN3B() {
+    public TetrisGame() {
         this.setPreferredSize(new Dimension(COLS * BLOCK_SIZE, ROWS * BLOCK_SIZE));
         this.setBackground(Color.BLACK);
         this.timer = new Timer(500, this);
         this.blockQueue = new LinkedList<>();
-        this.boardStack = new Stack<>();
         this.board = new int[ROWS][COLS];
         this.score = 0;
         this.gameOver = false;
@@ -100,7 +92,8 @@ public class QN3B extends JPanel implements ActionListener {
     private Tetromino generateRandomBlock() {
         Random random = new Random();
         int shapeIndex = random.nextInt(Tetromino.SHAPES.length);
-        return new Tetromino(Tetromino.SHAPES[shapeIndex], Color.CYAN);
+        Color randomColor = Tetromino.COLORS[random.nextInt(Tetromino.COLORS.length)];
+        return new Tetromino(Tetromino.SHAPES[shapeIndex], randomColor);
     }
 
     private void handleInput(int keyCode) {
@@ -182,7 +175,7 @@ public class QN3B extends JPanel implements ActionListener {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 if (board[i][j] == 1) {
-                    g.setColor(Color.CYAN);
+                    g.setColor(Color.LIGHT_GRAY);
                     g.fillRect(j * BLOCK_SIZE, i * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
                 }
             }
@@ -196,7 +189,7 @@ public class QN3B extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Tetris Game");
-        QN3B game = new QN3B();
+        TetrisGame game = new TetrisGame();
         frame.add(game);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -206,12 +199,18 @@ public class QN3B extends JPanel implements ActionListener {
 
 class Tetromino {
     static final int[][][] SHAPES = {
-            { { 1, 1, 1, 1 } },
-            { { 1, 1 }, { 1, 1 } },
-            { { 0, 1, 0 }, { 1, 1, 1 } },
-            { { 1, 1, 0 }, { 0, 1, 1 } },
-            { { 0, 1, 1 }, { 1, 1, 0 } }
+            { { 1, 1, 1, 1 } },                 // I Shape
+            { { 1, 1 }, { 1, 1 } },             // O Shape
+            { { 0, 1, 0 }, { 1, 1, 1 } },       // T Shape
+            { { 1, 1, 0 }, { 0, 1, 1 } },       // Z Shape
+            { { 0, 1, 1 }, { 1, 1, 0 } },       // S Shape
+            { { 1, 1, 1 }, { 1, 0, 0 } },       // L Shape
+            { { 1, 1, 1 }, { 0, 0, 1 } },       // J Shape
+            { { 1, 1, 1 }, { 0, 1, 0 } },       // New Unique Piece
+            { { 1, 0 }, { 1, 1 }, { 1, 0 } }    // Another Unique Piece
     };
+
+    static final Color[] COLORS = { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.PINK, Color.CYAN };
 
     int[][] shape;
     Color color;
@@ -245,7 +244,15 @@ class Tetromino {
     }
 
     public void rotate(int[][] board) {
-        // Add rotation logic here
+        int[][] rotatedShape = new int[shape[0].length][shape.length];
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                rotatedShape[j][shape.length - 1 - i] = shape[i][j];
+            }
+        }
+        if (canMove(0, 0, board)) {
+            shape = rotatedShape;
+        }
     }
 
     public void draw(Graphics g) {

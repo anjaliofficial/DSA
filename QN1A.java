@@ -31,7 +31,7 @@ Input: k = 3, n = 14
 Output: 4
 
 */
-//  This is how logic works:- 
+// Here we use dynamic programming.  This is how logic works:- 
 /*
  Step 1 :- Initialize DP Table: Create a table where dp[i][j] represents the number of temperature levels that can be tested with i samples and j attempts
 
