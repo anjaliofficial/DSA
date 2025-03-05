@@ -1,3 +1,49 @@
+/*
+  Question 3 
+You have a network of n devices. Each device can have its own communication module installed at a 
+cost of modules [i - 1]. Alternatively, devices can communicate with each other using direct connections. 
+The cost of connecting two devices is given by the array connections where each connections[j] = 
+[device1j, device2j, costj] represents the cost to connect devices device1j and device2j. Connections are 
+bidirectional, and there could be multiple valid connections between the same two devices with different 
+costs. 
+Goal: 
+Determine the minimum total cost to connect all devices in the network. 
+Input: 
+n: The number of devices. 
+modules: An array of costs to install communication modules on each device. 
+connections: An array of connections, where each connection is represented as a triplet [device1j, 
+device2j, costj]. 
+Output: 
+The minimum total cost to connect all devices. 
+Example: 
+Input: n = 3, modules = [1, 2, 2], connections = [[1, 2, 1], [2, 3, 1]] Output: 3 
+Explanation: 
+The best strategy is to install a communication module on the first device with cost 1 and connect the 
+other devices to it with cost 2, resulting in a total cost of 3.
+*/
+
+
+// How the algorithm works
+/*
+Add Virtual Connections: Create virtual connections from a new virtual node (0) to each device, where the cost is the module installation cost for each device.
+
+Add Direct Connections: Include the direct connections provided between devices along with their costs.
+
+Sort All Connections: Sort the connections in ascending order based on the connection cost to ensure we prioritize cheaper connections first.
+
+Union-Find Operations: Use the Union-Find data structure to track and manage the connected components of devices.
+
+Find Operation: Identifies the root of a set.
+
+Union Operation: Connects two devices (if they are not already connected) and keeps track of the connected components.
+
+Iterate through Sorted Connections: For each connection (from the sorted list), check if the devices are already connected. If not, connect them and add the cost to the total.
+
+Return the Total Cost: Once all devices are connected, return the total cost incurred from the module installations and direct connections.
+*/ 
+
+
+
 import java.util.*;
 
 // Class to handle Union-Find operations (used to track connected components)

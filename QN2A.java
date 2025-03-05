@@ -1,3 +1,63 @@
+/*
+a) 
+You have a team of n employees, and each employee is assigned a performance rating given in the 
+integer array ratings. You want to assign rewards to these employees based on the following rules: 
+Every employee must receive at least one reward. 
+Employees with a higher rating must receive more rewards than their adjacent colleagues. 
+Goal: 
+Determine the minimum number of rewards you need to distribute to the employees. 
+Input: 
+ratings: The array of employee performance ratings. 
+Output: 
+The minimum number of rewards needed to distribute.  
+Example 1: 
+Input: ratings = [1, 0, 2] 
+Output: 5 
+Explanation: You can allocate to the first, second and third employee with 2, 1, 2 rewards respectively. 
+Example 2: 
+Input: ratings = [1, 2, 2] 
+Output: 4 
+Explanation: You can allocate to the first, second and third employee with 1, 2, 1 rewards respectively. 
+The third employee gets 1 rewards because it satisfies the above two conditions. 
+
+*/ 
+
+
+// Explanation of how the algorithm works for the minRewards function:
+/*
+Step 1: Initialization
+Objective: Initialize an array to store rewards for each employee.
+Action:
+Create an array rewards of the same length as ratings where each element is initialized to 1, ensuring every employee gets at least 1 reward.
+
+Step 2: Left-to-Right Pass
+Objective: Ensure that employees with higher ratings than the previous one get more rewards.
+Action:
+Traverse the ratings array from left to right starting from the second employee.
+If the current employee's rating is higher than the previous employee's rating, increase the current employee's reward by 1 more than the previous employee's reward.
+
+
+Step 3: Right-to-Left Pass
+Objective: Ensure that employees with higher ratings than the next one also get more rewards, considering the previously updated rewards.
+Action:
+Traverse the ratings array from right to left starting from the second last employee.
+If the current employee's rating is higher than the next employee's rating, update the current employee's reward by taking the maximum of its current reward and the next employee's reward + 1 to handle conflicts from the left-to-right pass.
+
+
+Step 4: Compute Total Rewards
+Objective: Calculate the total number of rewards.
+Action:
+Sum up all values in the rewards array to get the total reward count.
+
+
+Step 5: Return Total Rewards
+Objective: Return the final total rewards.
+Action:
+Return the calculated total reward count from the rewards array.
+*/ 
+
+
+
 import java.util.Arrays; // Importing the Arrays utility class for array operations.
 
 public class QN2A {
