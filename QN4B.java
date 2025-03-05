@@ -1,3 +1,65 @@
+/*
+Question 4b) 
+You have a map of a city represented by a graph with n nodes (representing locations) and edges where 
+edges[i] = [ai, bi] indicates a road between locations ai and bi. Each location has a value of either 0 or 1, 
+indicating whether there is a package to be delivered. You can start at any location and perform the 
+following actions: 
+Collect packages from all locations within a distance of 2 from your current location. 
+Move to an adjacent location. 
+Your goal is to collect all packages and return to your starting location. 
+Goal: 
+Determine the minimum number of roads you need to traverse to collect all packages. 
+Input: 
+packages: An array of package values for each location. 
+roads: A 2D array representing the connections between locations. 
+Output: 
+The minimum number of roads to traverse. 
+Note that if you pass a roads several times, you need to count it into the answer several times. 
+Input: packages = [1, 0, 0, 0, 0, 1], roads = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]] 
+Output:2  
+Explanation: Start at location 2, collect the packages at location 0, move to location 3, collect the 
+packages at location 5 then move back to location  2. 
+Input: packages = [0,0,0,1,1,0,0,1], roads = [[0,1],[0,2],[1,3],[1,4],[2,5],[5,6],[5,7]] 
+Output: 2 
+Explanation: Start at location 0, collect the package at location 4 and 3, move to location 2,  collect the 
+package  at location  7, then move back to location  0.
+
+*/ 
+
+
+
+
+
+// How the algorithm works in detail:
+/*
+
+Graph Representation:
+
+The road network is represented as an adjacency list where each node has a list of its neighboring nodes (connected by roads).
+Package Locations:
+
+The algorithm first identifies the nodes (locations) where the packages are present. These nodes are collected in a list.
+Breadth-First Search (BFS) for Shortest Paths:
+
+The distances between all pairs of nodes are computed using BFS. The BFS starts from each node and finds the shortest distance to all other nodes. This gives a distance matrix which is used to evaluate how far apart the nodes are.
+State Exploration:
+
+The algorithm explores each possible starting location for the collection of packages. From each starting node, a BFS-like exploration is done using a queue. The exploration keeps track of:
+The current location.
+The number of roads traveled so far.
+The set of collected packages.
+During exploration, if a node is within a distance of 2 roads and has a package, the package is collected.
+Goal Check:
+
+The algorithm checks if all packages have been collected by inspecting the set of collected packages. If all are collected, the algorithm evaluates the number of roads taken, including the return trip to the starting point.
+Result:
+
+The algorithm tries every possible starting node and returns the minimum number of roads needed to collect all packages and return to the starting location. If it's not possible to collect all packages, the algorithm returns -1.
+ */
+//
+
+
+
 import java.util.*; // Import Java utility package for collections like List, Queue, Set, etc.
 
 public class QN4B { // Define the public class QN4B

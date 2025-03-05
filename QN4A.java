@@ -1,3 +1,54 @@
+/*
+ Question 4 
+a) 
+Input: 
+Tweets table: 
+[15 Marks] 
+Write a solution to find the top 3 trending hashtags in February 2024. Every tweet may 
+contain several hashtags. 
+Return the result table ordered by count of hashtag, hashtag in descending order. 
+The result format is in the following example. 
+Explanation: 
+#HappyDay: Appeared in tweet IDs 13, 14, and 17, with a total count of 3 mentions. 
+#TechLife: Appeared in tweet IDs 16 and 18, with a total count of 2 mentions. 
+#WorkLife: Appeared in tweet ID 15, with a total count of 1 mention. 
+Note: Output table is sorted in descending order by hashtag_count and hashtag respectively. 
+[5 Marks] 
+ 
+*/
+
+
+// Algorithm for Extracting Top 3 Trending Hashtags from Tweets:
+/*
+Data Initialization:
+
+Initialize a list of tweets, each containing tweet ID, content, and date (all in February 2024).
+Filter Tweets from February 2024:
+
+Iterate through the list of tweets.
+For each tweet, check if the date is within February 2024 (i.e., year = 2024 and month = FEBRUARY).
+Extract Unique Hashtags:
+
+Use a regular expression (#\w+) to find all hashtags in each tweet's content.
+Add all extracted hashtags to a Set to ensure uniqueness.
+Count Hashtag Frequencies:
+
+Maintain a Map to track the count of each unique hashtag.
+For every unique hashtag extracted from each tweet, update its count in the map.
+Sort Hashtags:
+
+Convert the Map entries (hashtag and its count) into a list of Map.Entry objects.
+Sort the list primarily by hashtag count in descending order.
+If multiple hashtags have the same count, sort them alphabetically in descending order by the hashtag name.
+Get the Top 3 Hashtags:
+
+Extract the top 3 hashtags from the sorted list. If there are fewer than 3 hashtags, return all available hashtags.
+Format the result as "hashtag: count".
+Output the Result:
+
+Print the top 3 hashtags along with their counts.
+*/ 
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
